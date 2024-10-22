@@ -6,10 +6,6 @@
   "author": "MadMax74",
   "publisher": "MadMax74",
   "version": "0.0.1",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/madmax7474/opencolor-picker"
-  },
   "engines": {
     "vscode": "^1.94.0"
   },
@@ -18,7 +14,8 @@
   ],
   "main": "./out/extension.js",
   "activationEvents": [
-    "onCommand:opencolor-picker.openColorPickerWebView"
+    "onCommand:opencolor-picker.openColorPickerWebView",
+    "onStartupFinished"
   ],
   "contributes": {
     "commands": [
@@ -27,6 +24,10 @@
         "title": "Open Color Picker WebView"
       }
     ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/madmax7474/opencolor-picker"
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",
