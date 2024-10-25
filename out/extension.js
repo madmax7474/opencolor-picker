@@ -45,60 +45,65 @@ function createColorPickerPanel(context) {
     });
     // Definiamo l'HTML da mostrare nel WebView
     const htmlContent = `
-        <html>
-        <head>
-            <style>
-                body {
-                    font-family: sans-serif;
-                    margin: 0;
-                    padding: 10px;
-                }
-                .color-section {
-                    margin-bottom: 30px;
-                }
-                h2 {
-                    text-align: center;
-                    font-size: 24px;
-                    font-weight: bold;
-                    margin-bottom: 10px;
-                }
-                .color-container {
-                    display: grid;
-                    grid-template-columns: repeat(5, 1fr); /* 5 colonne uguali */
-                    gap: 20px;
-                }
-                .color-box-wrapper {
-                    display: flex;
-                    flex-direction: column;
-                    align-items: center;
-                }
-                .color-box {
-                    width: 100%;
-                    height: 30px; /* Rettangoli più bassi */
-                    border-radius: 5px;
-                    cursor: pointer;
-                    transition: transform 0.2s ease;
-                }
-                .color-box:hover {
-                    transform: scale(1.05);
-                }
-                .color-label, .color-value {
-                    font-size: 14px;
-                    margin-top: 5px;
-                    text-align: center;
-                    color: white; /* Colore bianco */
-                }
-                .color-value {
-                    font-size: 14px;
-                    letter-spacing: 1px;
-                }
-            </style>
-        </head>
-        <body>
-            <!-- Sezione GRAY -->
-            <div class="color-section">
-                <h2 style="color: #868e96;">GRAY</h2>
-                <div class="color-container">
+    <html>
+    <head>
+        <style>
+            body {
+                font-family: sans-serif;
+                margin: 0;
+                padding: 10px;
+            }
+            .color-section {
+                margin-bottom: 30px;
+            }
+            h2 {
+                text-align: center;
+                font-size: 24px;
+                font-weight: bold;
+                margin-bottom: 10px;
+                cursor: pointer; /* Aggiungiamo un cursore per mostrare che è cliccabile */
+            }
+            .color-container {
+                display: grid;
+                grid-template-columns: repeat(5, 1fr); /* 5 colonne uguali */
+                gap: 20px;
+            }
+            .color-box-wrapper {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+            .color-box {
+                width: 100%;
+                height: 40px;
+                border-radius: 5px;
+                cursor: pointer;
+                transition: transform 0.2s ease;
+            }
+            .color-box:hover {
+                transform: scale(1.05);
+            }
+            .color-label, .color-value {
+                font-size: 14px;
+                margin-top: 5px;
+                text-align: center;
+                color: white; /* Colore bianco */
+            }
+            .color-value {
+                font-size: 14px;
+                letter-spacing: 1px;
+            }
+
+            .collapsed {
+                display: none; /* Nascondiamo la sezione quando collassata */
+            }
+        </style>
+    </head>
+    <body>
+        <!-- Sezione GRAY -->
+        <div class="color-section">
+            <h2 style="color: #868e96;" data-target="gray-container">GRAY</h2>
+            <div class="color-container" id="gray-container">
                     ${generateColorBoxes([
         { label: 'GRAY 0', value: '#f8f9fa' },
         { label: 'GRAY 1', value: '#f1f3f5' },
@@ -116,8 +121,8 @@ function createColorPickerPanel(context) {
 
             <!-- Sezione RED -->
             <div class="color-section">
-                <h2 style="color: #ff0000;">RED</h2>
-                <div class="color-container">
+                <h2 style="color: #ff0000;" data-target="red-container">RED</h2>
+                <div class="color-container" id="red-container">
                     ${generateColorBoxes([
         { label: 'RED 0', value: '#fff5f5' },
         { label: 'RED 1', value: '#ffe3e3' },
@@ -135,8 +140,8 @@ function createColorPickerPanel(context) {
 
             <!-- Sezione PINK -->
             <div class="color-section">
-                <h2 style="color: #ff69b4;">PINK</h2>
-                <div class="color-container">
+                <h2 style="color: #ff69b4;" data-target="pink-container">PINK</h2>
+                <div class="color-container" id="pink-container">
                     ${generateColorBoxes([
         { label: 'PINK 0', value: '#fff0f6' },
         { label: 'PINK 1', value: '#ffdeeb' },
@@ -154,8 +159,8 @@ function createColorPickerPanel(context) {
 
             <!-- Sezione GRAPE -->
             <div class="color-section">
-                <h2 style="color: #be4bdb;">GRAPE</h2>
-                <div class="color-container">
+                <h2 style="color: #be4bdb;" data-target="grape-container">GRAPE</h2>
+                <div class="color-container" id="grape-container">
                     ${generateColorBoxes([
         { label: 'GRAPE 0', value: '#f8f0fc' },
         { label: 'GRAPE 1', value: '#f3d9fa' },
@@ -173,8 +178,8 @@ function createColorPickerPanel(context) {
 
             <!-- Sezione VIOLET -->
             <div class="color-section">
-                <h2 style="color: #7950f2;">VIOLET</h2>
-                <div class="color-container">
+                <h2 style="color: #7950f2;" data-target="violet-container">VIOLET</h2>
+                <div class="color-container" id="violet-container">
                     ${generateColorBoxes([
         { label: 'VIOLET 0', value: '#f3f0ff' },
         { label: 'VIOLET 1', value: '#e5dbff' },
@@ -192,8 +197,8 @@ function createColorPickerPanel(context) {
 
             <!-- Sezione INDIGO -->
             <div class="color-section">
-                <h2 style="color: #4c6ef5;">INDIGO</h2>
-                <div class="color-container">
+                <h2 style="color: #4c6ef5;" data-target="indigo-container">INDIGO</h2>
+                <div class="color-container" id="indigo-container">
                     ${generateColorBoxes([
         { label: 'INDIGO 0', value: '#edf2ff' },
         { label: 'INDIGO 1', value: '#dbe4ff' },
@@ -211,8 +216,8 @@ function createColorPickerPanel(context) {
 
             <!-- Sezione BLUE -->
             <div class="color-section">
-                <h2 style="color: #228be6;">BLUE</h2>
-                <div class="color-container">
+                <h2 style="color: #228be6;" data-target="blue-container">BLUE</h2>
+                <div class="color-container" id="blue-container">
                     ${generateColorBoxes([
         { label: 'BLUE 0', value: '#e7f5ff' },
         { label: 'BLUE 1', value: '#d0ebff' },
@@ -230,8 +235,8 @@ function createColorPickerPanel(context) {
 
             <!-- Sezione CYAN -->
             <div class="color-section">
-                <h2 style="color: #15aabf;">CYAN</h2>
-                <div class="color-container">
+                <h2 style="color: #15aabf;" data-target="cyan-container">CYAN</h2>
+                <div class="color-container" id="cyan-container">
                     ${generateColorBoxes([
         { label: 'CYAN 0', value: '#e3fafc' },
         { label: 'CYAN 1', value: '#c5f6fa' },
@@ -249,8 +254,8 @@ function createColorPickerPanel(context) {
 
             <!-- Sezione TEAL -->
             <div class="color-section">
-                <h2 style="color: #12b886;">TEAL</h2>
-                <div class="color-container">
+                <h2 style="color: #12b886;" data-target="teal-container">TEAL</h2>
+                <div class="color-container" id="teal-container">
                     ${generateColorBoxes([
         { label: 'TEAL 0', value: '#e6fcf5' },
         { label: 'TEAL 1', value: '#c3fae8' },
@@ -268,8 +273,8 @@ function createColorPickerPanel(context) {
 
             <!-- Sezione GREEN -->
             <div class="color-section">
-                <h2 style="color: #198754;">GREEN</h2>
-                <div class="color-container">
+                <h2 style="color: #198754;" data-target="green-container">GREEN</h2>
+                <div class="color-container" id="green-container">
                     ${generateColorBoxes([
         { label: 'GREEN 0', value: '#ebfbee' },
         { label: 'GREEN 1', value: '#d3f9d8' },
@@ -287,8 +292,8 @@ function createColorPickerPanel(context) {
 
             <!-- Sezione LIME -->
             <div class="color-section">
-                <h2 style="color: #82c91e;">LIME</h2>
-                <div class="color-container">
+                <h2 style="color: #82c91e;" data-target="lime-container">LIME</h2>
+                <div class="color-container" id="lime-container">
                     ${generateColorBoxes([
         { label: 'LIME 0', value: '#f4fce3' },
         { label: 'LIME 1', value: '#e9fac8' },
@@ -306,8 +311,8 @@ function createColorPickerPanel(context) {
 
             <!-- Sezione YELLOW -->
             <div class="color-section">
-                <h2 style="color: #ffc107;">YELLOW</h2>
-                <div class="color-container">
+                <h2 style="color: #ffc107;" data-target="yellow-container">YELLOW</h2>
+                <div class="color-container" id="yellow-container">
                     ${generateColorBoxes([
         { label: 'YELLOW 0', value: '#fff9db' },
         { label: 'YELLOW 1', value: '#fff3bf' },
@@ -325,8 +330,8 @@ function createColorPickerPanel(context) {
 
             <!-- Sezione ORANGE -->
             <div class="color-section">
-                <h2 style="color: #fd7e14;">ORANGE</h2>
-                <div class="color-container">
+                <h2 style="color: #fd7e14;" data-target="orange-container">ORANGE</h2>
+                <div class="color-container" id="orange-container">
                     ${generateColorBoxes([
         { label: 'ORANGE 0', value: '#fff4e6' },
         { label: 'ORANGE 1', value: '#ffe8cc' },
@@ -339,23 +344,38 @@ function createColorPickerPanel(context) {
         { label: 'ORANGE 8', value: '#e8590c' },
         { label: 'ORANGE 9', value: '#d9480f' }
     ])}
-                </div>
+                 </div>
             </div>
 
-        </body>
-        <script>
-            // Aggiungi gli eventi di click sui colori
-            document.querySelectorAll('.color-box').forEach(box => {
-                box.addEventListener('click', () => {
-                    const color = box.getAttribute('data-color');
-                    navigator.clipboard.writeText(color)
-                        .then(() => alert('Colore copiato: ' + color))
-                        .catch(err => console.error('Errore durante la copia:', err));
-                });
+    </body>
+    <script>
+        // Funzione per gestire il click sulle intestazioni <h2> e collassare le sezioni
+        document.querySelectorAll('h2').forEach(header => {
+            header.addEventListener('click', () => {
+                const targetId = header.getAttribute('data-target');
+                const targetElement = document.getElementById(targetId);
+                
+                // Alterniamo la classe 'collapsed'
+                if (targetElement.classList.contains('collapsed')) {
+                    targetElement.classList.remove('collapsed');
+                } else {
+                    targetElement.classList.add('collapsed');
+                }
             });
-        </script>
-        </html>
-        `;
+        });
+
+        // Aggiungi gli eventi di click sui colori
+        document.querySelectorAll('.color-box').forEach(box => {
+            box.addEventListener('click', () => {
+                const color = box.getAttribute('data-color');
+                navigator.clipboard.writeText(color)
+                    .then(() => alert('Colore copiato: ' + color))
+                    .catch(err => console.error('Errore durante la copia:', err));
+            });
+        });
+    </script>
+    </html>
+    `;
     // Impostiamo il contenuto del webview
     panel.webview.html = htmlContent;
     // Memorizza lo stato del WebView aperto

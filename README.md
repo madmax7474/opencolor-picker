@@ -28,7 +28,7 @@ This extension includes the following color palettes:
 
 ## Preview
 
-[Preview of OpenColor Picker](images\Gif.gif)
+[Preview of OpenColor Picker](images/opencolor.gif)
 
 ## How it works
 
