@@ -35,6 +35,7 @@ This extension includes the following color palettes:
 1. Open the extension from the command palette (Ctrl+Shift+P) and select "Opencolor Picker".
 2. Select your preferred color from the Opencolor tab.
 3. Click on the color box to copy the HEX code to your clipboard.
+4. If you click on the colored title of every section , you can collapse all colors of that section.
 
 ## Requirements
 
