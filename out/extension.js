@@ -26,24 +26,18 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.activate = activate;
 const vscode = __importStar(require("vscode"));
 function activate(context) {
-    // Registra il comando per aprire il WebView
     let disposable = vscode.commands.registerCommand('opencolor-picker.openColorPickerWebView', () => {
         createColorPickerPanel(context);
     });
-    // Controlla se il WebView era aperto prima della chiusura di VSCode
     if (context.workspaceState.get('colorPickerOpen')) {
         createColorPickerPanel(context);
     }
     context.subscriptions.push(disposable);
 }
 function createColorPickerPanel(context) {
-    const panel = vscode.window.createWebviewPanel('colorPicker', // Identificatore del WebView
-    'Opencolor Picker', // Titolo della finestra
-    vscode.ViewColumn.One, // Posizione del WebView
-    {
-        enableScripts: true, // Abilita gli script nella WebView
+    const panel = vscode.window.createWebviewPanel('colorPicker', 'Opencolor Picker', vscode.ViewColumn.One, {
+        enableScripts: true,
     });
-    // Definiamo l'HTML da mostrare nel WebView
     const htmlContent = `
     <html>
     <head>
@@ -65,8 +59,8 @@ function createColorPickerPanel(context) {
             }
             .color-container {
                 display: grid;
-                grid-template-columns: repeat(5, 1fr); /* 5 colonne uguali */
-                gap: 20px;
+                grid-template-columns: repeat(5, 1fr);
+                gap: 10px;
             }
             .color-box-wrapper {
                 display: flex;
@@ -75,8 +69,8 @@ function createColorPickerPanel(context) {
             }
             .color-box {
                 width: 100%;
-                height: 40px;
-                border-radius: 5px;
+                height: 60px;
+                border-radius: 2px;
                 cursor: pointer;
                 transition: transform 0.2s ease;
             }
@@ -87,7 +81,7 @@ function createColorPickerPanel(context) {
                 font-size: 14px;
                 margin-top: 5px;
                 text-align: center;
-                color: white; /* Colore bianco */
+                color: white;
             }
             .color-value {
                 font-size: 14px;
@@ -95,7 +89,7 @@ function createColorPickerPanel(context) {
             }
 
             .collapsed {
-                display: none; /* Nascondiamo la sezione quando collassata */
+                display: none;
             }
         </style>
     </head>
@@ -349,13 +343,13 @@ function createColorPickerPanel(context) {
 
     </body>
     <script>
-        // Funzione per gestire il click sulle intestazioni <h2> e collassare le sezioni
+
         document.querySelectorAll('h2').forEach(header => {
             header.addEventListener('click', () => {
                 const targetId = header.getAttribute('data-target');
                 const targetElement = document.getElementById(targetId);
                 
-                // Alterniamo la classe 'collapsed'
+
                 if (targetElement.classList.contains('collapsed')) {
                     targetElement.classList.remove('collapsed');
                 } else {
@@ -364,7 +358,6 @@ function createColorPickerPanel(context) {
             });
         });
 
-        // Aggiungi gli eventi di click sui colori
         document.querySelectorAll('.color-box').forEach(box => {
             box.addEventListener('click', () => {
                 const color = box.getAttribute('data-color');
@@ -376,16 +369,12 @@ function createColorPickerPanel(context) {
     </script>
     </html>
     `;
-    // Impostiamo il contenuto del webview
     panel.webview.html = htmlContent;
-    // Memorizza lo stato del WebView aperto
     panel.onDidDispose(() => {
         context.workspaceState.update('colorPickerOpen', false);
     }, null, context.subscriptions);
-    // Segna il WebView come aperto
     context.workspaceState.update('colorPickerOpen', true);
 }
-// Funzione per generare i quadrati di colore
 function generateColorBoxes(colors) {
     return colors.map(color => `
         <div class="color-box-wrapper">
